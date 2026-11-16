@@ -2,30 +2,62 @@ import sys
 import math
 
 def load_data(filepath:str, column:int)->tuple[list, int]:
-    # TODO - Complete the function so it loads the data from the file into a list
-    # The function returns a tuple that contains the list of values and the total number 
-    # of values in the column
-    pass
+    numbers = []
+    filepath = "assignment-2-main/files/" + filepath
+    count = 0
+    with open(filepath, 'r') as file:
+        for line in file:
+            print(line)
+            try:
+                num = line.split('\t')[column]
+            except IndexError:
+                print(f'Error: Column {column} not found in data file. Please try again.')
+                sys.exit()
+            try:
+                float_num = float(num)
+                if math.isnan(float_num):
+                    count += 1
+                    continue
+                numbers.append(float_num)
+            except:
+                pass
+            count += 1
+        if len(numbers) == 0:
+            print(f'Error: There were no valid number(s) in column {column}')
+            sys.exit()
+    return (numbers, count)
 
 def calculate_average(numbers:list)->float:
-    # TODO - Complete the function to return the average of the list of numbers
-    pass
+    return sum(numbers)/len(numbers)
 
 def get_max_and_min(numbers:list)->tuple[float, float]:
-    # TODO - Complete the function to return a tuple with the maximum and minimum
-    # values in the list, in that order
-    pass
+    return (max(numbers), min(numbers))
 
 def calculate_variance(numbers:list)->float:
-    # TODO - Complete the function to return the variance of the numbers in the list
-    pass
+    length = len(numbers)
+    if length < 2:
+        return 0.0
+    avg = calculate_average(numbers)
+    var_sum = 0
+    for num in numbers:
+        var_sum += (num - avg) ** 2
+    var = (1/(length - 1)) * var_sum 
+    return round(var, 3)
 
 def calculate_std_dev(numbers:list)->float:
-    # TODO - Complete the function to return the standard deviation of the numbers in the list
-    pass
+    return round(math.sqrt(calculate_variance(numbers)), 3)
 
-def calculate_median(number:list)->float:
-    # TODO - Complete the function to return the median of the numbers in the list
-    pass
+def calculate_median(numbers:list)->float:
+    length = len(numbers)
+    numbers.sort()
+
+    if length % 2 == 0:
+        mid1 = length // 2
+        mid2 = mid1 - 1
+        median = (numbers[mid1] + numbers[mid2]) / 2
+    else:
+        mid = length // 2
+        median = numbers[mid]
+    return median
 
 
