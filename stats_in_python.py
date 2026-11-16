@@ -1,21 +1,21 @@
 import sys
 import math
 
-def load_data(filepath:str, column:int)->tuple[list, int]:
+def load_data(filepath:str, column:int)->tuple[list, int]: #load data from file and return a tuple of a list of number and the total count of values in the column
     numbers = []
     filepath = "assignment-2-main/files/" + filepath
     count = 0
-    with open(filepath, 'r') as file:
+    with open(filepath, 'r') as file: #open file and read each line, split by tab, and convert to float if possible, otherwise skip
         for line in file:
             print(line)
-            try:
+            try: #try to access specified column, if not found, print error and exit
                 num = line.split('\t')[column]
             except IndexError:
                 print(f'Error: Column {column} not found in data file. Please try again.')
                 sys.exit()
-            try:
+            try: #try to convert to float
                 float_num = float(num)
-                if math.isnan(float_num):
+                if math.isnan(float_num): #checks if number is NaN 
                     count += 1
                     continue
                 numbers.append(float_num)
@@ -45,19 +45,19 @@ def calculate_variance(numbers:list)->float:
     return round(var, 3)
 
 def calculate_std_dev(numbers:list)->float:
-    return round(math.sqrt(calculate_variance(numbers)), 3)
+    return math.sqrt(calculate_variance(numbers))
 
 def calculate_median(numbers:list)->float:
     length = len(numbers)
     numbers.sort()
 
-    if length % 2 == 0:
+    if length % 2 == 0: #average of two middle numbers if even length
         mid1 = length // 2
         mid2 = mid1 - 1
         median = (numbers[mid1] + numbers[mid2]) / 2
-    else:
-        mid = length // 2
+    else: #return middle number if odd length
+        mid = length // 2 
         median = numbers[mid]
-    return median
+    return float(median)
 
 
