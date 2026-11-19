@@ -3,7 +3,6 @@ import math
 
 def load_data(filepath:str, column:int)->tuple[list, int]: #load data from file and return a tuple of a list of number and the total count of values in the column
     numbers = []
-    filepath = "assignment-2-main/files/" + filepath
     count = 0
     with open(filepath, 'r') as file: #open file and read each line, split by tab, and convert to float if possible, otherwise skip
         for line in file:
