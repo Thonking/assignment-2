@@ -6,7 +6,6 @@ def load_data(filepath:str, column:int)->tuple[list, int]: #load data from file 
     count = 0
     with open(filepath, 'r') as file: #open file and read each line, split by tab, and convert to float if possible, otherwise skip
         for line in file:
-            print(line)
             try: #try to access specified column, if not found, print error and exit
                 num = line.split('\t')[column]
             except IndexError:
@@ -27,10 +26,10 @@ def load_data(filepath:str, column:int)->tuple[list, int]: #load data from file 
     return (numbers, count)
 
 def calculate_average(numbers:list)->float:
-    return sum(numbers)/len(numbers)
+    return round(sum(numbers)/len(numbers), 3)
 
 def get_max_and_min(numbers:list)->tuple[float, float]:
-    return (max(numbers), min(numbers))
+    return (round(max(numbers), 3), round(min(numbers), 3))
 
 def calculate_variance(numbers:list)->float:
     length = len(numbers)
