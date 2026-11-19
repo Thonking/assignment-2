@@ -26,10 +26,10 @@ def load_data(filepath:str, column:int)->tuple[list, int]: #load data from file 
     return (numbers, count)
 
 def calculate_average(numbers:list)->float:
-    return round(sum(numbers)/len(numbers), 3)
+    return sum(numbers)/len(numbers)
 
 def get_max_and_min(numbers:list)->tuple[float, float]:
-    return (round(max(numbers), 3), round(min(numbers), 3))
+    return (max(numbers), min(numbers))
 
 def calculate_variance(numbers:list)->float:
     length = len(numbers)
@@ -40,7 +40,7 @@ def calculate_variance(numbers:list)->float:
     for num in numbers:
         var_sum += (num - avg) ** 2
     var = (1/(length - 1)) * var_sum 
-    return round(var, 3)
+    return var
 
 def calculate_std_dev(numbers:list)->float:
     return math.sqrt(calculate_variance(numbers))
